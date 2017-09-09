@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!TextUtils.isEmpty(alarmPreference.getOneTimeDate())){
             setOneTimeText();
         }
+        if (!TextUtils.isEmpty(alarmPreference.getOneTimeDate())){
+            setRepeatingText();
+        }
     }
     @Override
     public void onClick(View v) {
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     alarmPreference.getOneTimeDate(),
                     alarmPreference.getOneTimeTime(),
                     alarmPreference.getOneTimeMessage());
+
         } else if (v.getId() == R.id.btn_repeating_time_alarm) {
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             String repeatTimeTime = timeFormat.format(calRepeatTimeTime.getTime());
@@ -126,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alarmPreference.setRepeatingTime(repeatTimeTime);
             alarmPreference.setRepeatingMessage(repeatTimeMessage);
             alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING, alarmPreference.getRepeatingTime(), alarmPreference.getRepeatingMessage());
+
         } else if (v.getId() == R.id.btn_cancel_repeating_alarm) {
             alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING);
         }
@@ -141,4 +146,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvRepeatingTime.setText(alarmPreference.getRepeatingTime());
         etRepeatingMessage.setText(alarmPreference.getRepeatingMessage());
     }
+
 }
